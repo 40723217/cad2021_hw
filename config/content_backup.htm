@@ -6,15 +6,19 @@
 <p>網站連結: <a href="https://mde.tw/cad2021_hw">https://mde.tw/cad2021_hw</a></p>
 <p>其他與作者或作業相關資料說明或介紹</p>
 <h1>HW1</h1>
-<p>HW1 佔學期成績 25%</p>
-<p><span style="background-color: #ffff99;">HW1 必須在 2021.11.10 22:00 之前完成.<br/></span></p>
+<p></p>
 <p><a href="https://github.com/mdecourse/cad2021/discussions/5">HW1 具體項目成果回報區</a>將於 2021.09.23 開啟, 於 <span style="background-color: #ff99cc;">2021.11.10 22:00 關閉.</span></p>
 <h4>作業一: meArm Robot 零件繪圖與機電運動模擬場景製作</h4>
-<p style="padding-left: 30px;"><span style="background-color: #ccffcc;">Step1</span>: 下載 <a href="https://drive.google.com/file/d/18ukdNlFB9yHY-FZSY-bTnzrPrNv0FE4D/view?usp=sharing">meARM.7z</a> 這個包含尚未完成組立的 meArm Robot 場景與雷射切割零件組立手冊.</p>
-<p style="padding-left: 60px;"><a href="/downloads/meArm_75-0040_v1.pdf">meArm_75-0040_v1.pdf</a> 則是另外一本組立參考手冊.</p>
-<p style="padding-left: 30px;"><span style="background-color: #ccffcc;">Step2</span>: 從課程網頁中的 <a href="https://mde.tw/cad2021/content/Compile%20CoppeliaSim.html">Compile CoppeliaSim 頁面</a>, 下載 <a href="https://drive.google.com/file/d/1hV8hHjjnLvUp-AEjd2iCfBYk067WSjcy/view?usp=sharing">coppeliaSim 4.1.0 官方版與 MSYS2 編譯版.7z</a> (檔案大小 412 MB, 解開壓縮後 1GB) 可攜套件.</p>
-<p style="padding-left: 30px;"><span style="background-color: #ccffcc;">Step3</span>: 在 HW1 中, 要求每一位學員透過程式亂數分配 (兩班實際亂數分配結果以上課時點擊下列按鈕所得結果為準) 所使用的兩套參數式 CAD 套件, 從軟體發展緣起開始進行介紹,  經過教育版軟體套件檔案的取得, 下載安裝以及配置使用. 根據 Step1 中的零件尺寸, 逐一完成 meArm Robot 各零件繪製與組立. 並將零件<a href="https://www.coppeliarobotics.com/helpFiles/en/importExport.htm">匯入</a> CoppeliaSim 進行組裝配置後, 以 <a href="https://www.coppeliarobotics.com/helpFiles/en/customUIPlugin.htm">UI 介面</a>中的 slider 控制 meArm Robot 各軸的旋轉作動.</p>
-<p style="padding-left: 30px;">2b CAD 套件分配結果: <a href="https://mde.tw/cad2021/downloads/online/2b_hw1_cad.txt">https://mde.tw/cad2021/downloads/online/2b_hw1_cad.txt</a></p>
+<p>閱讀 <a href="https://www.youtube.com/watch?v=3gynv9LBmjs&amp;ab_channel=LeopoldoArmesto">Robotic Systems 機器人系統</a></p>
+<p>有關機械臂的軌跡線性控制或圓形控制，軌跡調整</p>
+<p>閱讀日期10/28 閱讀時間30mins(包含翻譯)、影片長度2分鐘(尚未閱讀完畢)</p>
+<p>1.導讀:要介紹使用三個自由度去製作minion機器人，這個影片將會解釋如何使用線性與旋轉去做軌跡<span>控制</span></p>
+<p>2.三大目的:描繪meArm的直線運動學、如何實現機械手臂(在笛卡爾空間)進行直線、旋轉運動，以及完成讓手臂實行點到點控制。</p>
+<p>3.解釋各項尺寸</p>
+<p><img alt="" height="712" src="/images/chrome_5pCeFzqZnR.png" width="1275"/></p>
+<p>4.直線運動學:第一行解釋如何控制關節讓抓手在x-y象限中移動</p>
+<p>首先我們需要先確定r的長度，要注意在機台上的關節軸2,3(也就是上方圖片l2與i3相連的關節)</p>
+<p style="padding-left: 30px;"><span style="background-color: #ccffcc;"></span></p>
 <h4>附件:</h4>
 <p style="padding-left: 30px;">1. CAD 套件分配表:</p>
 <p style="padding-left: 60px;">sw: Solidworks, inv: Inventor, nx: NX12, ons: Onshape, slvs: Solvespace</p>
@@ -25,69 +29,7 @@
 <p style="padding-left: 30px;">4. CoppeliaSim design dynamic simulations <a href="https://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm">說明頁面</a>.</p>
 <p style="padding-left: 30px;">5. <a href="https://mde.tw/cad2021/downloads/lua/index.html">網際 Lua</a> 程式執行.</p>
 <p style="padding-left: 30px;">6. <a href="/downloads/meArm.slvs">meArm.slvs</a>, <a href="/downloads/meArm_in_solvespace.slvs">meArm_in_solvespace.slvs</a></p>
-<p style="padding-left: 30px;">7. UI 介面程式參考:</p>
-<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function closeEventHandler(h)
-    sim.addLog(sim.verbosity_scriptinfos,'Window '..h..' is closing...')
-    simUI.hide(h)
-end
-
-function joint1_rotate(ui,id,newVal)
-    simUI.setLabelText(ui,3000,'theta1 set to '..newVal)
-    sim.setJointTargetPosition(joint1, newVal*deg)
-end
-
-function joint2_rotate(ui,id,newVal)
-    simUI.setLabelText(ui,3000,'theta2 set to '..newVal)
-    sim.setJointTargetPosition(joint2, newVal*deg)
-end
-
-function joint3_rotate(ui,id,newVal)
-    simUI.setLabelText(ui,3000,'theta3 set to '..newVal)
-    sim.setJointTargetPosition(joint3, newVal*deg)
-end
-
-function joint16_rotate(ui,id,newVal)
-    simUI.setLabelText(ui,3000,'theta16 set to '..newVal)
-    sim.setJointTargetPosition(joint16, newVal*deg)
-    sim.setJointTargetPosition(joint20, -newVal*deg)
-end
-
-function sysCall_init()
-    -- do some initialization here
-    joint1 = sim.getObjectHandle('motor1')
-    joint2 = sim.getObjectHandle('motor2')
-    joint3 = sim.getObjectHandle('motor3')
-    joint16 = sim.getObjectHandle('motor16')
-    joint20 = sim.getObjectHandle('motor20')
-    i = 0
-    deg = math.pi/180
-    print(i)
-    xml = [[
-&lt;ui closeable="true" on-close="closeEventHandler" resizable="true"&gt;
-    &lt;label text="This is a demo of the CustomUI plugin. Browse through the tabs below to explore all the widgets that can be created with the plugin." wordwrap="true" /&gt;
-    &lt;tabs&gt;
-        &lt;tab title="Numeric"&gt;a
-            &lt;label text="Sliders can be oriented horizontally or vertically, and have optional properties that can be set (in the XML) such as minimum and maximum value." wordwrap="true" /&gt;
-            &lt;label text="" id="3000" wordwrap="true" /&gt;
-            &lt;label text="theta1" /&gt; &lt;hslider tick-position="above" tick-interval="1" 
-            minimum="0" maximum="360" on-change="joint1_rotate" /&gt;
-            &lt;label text="theta2" /&gt; &lt;hslider tick-position="above" tick-interval="1" 
-            minimum="-90" maximum="65" on-change="joint2_rotate" /&gt;
-            &lt;label text="theta3" /&gt; &lt;hslider tick-position="above" tick-interval="1" 
-            minimum="-90" maximum="185" on-change="joint3_rotate" /&gt;
-            &lt;label text="theta16" /&gt; &lt;hslider tick-position="above" tick-interval="1" 
-            minimum="0" maximum="15" on-change="joint16_rotate" /&gt;
-        &lt;/tab&gt;
-    &lt;/tabs&gt;
-&lt;/ui&gt;
-]]
-    ui=simUI.create(xml)
-    
-end</pre>
-<p><img alt="" class="add_border" height="282" src="/images/meArm_linkage_dimension.png" width="600"/></p>
-<p>(From: <a href="/downloads/2016_ADDITIVE MANUFACTURING PROCESSES FOR FABRICATING A MINI ROBOT - COMPUTATIONAL MODELS AND EXPERIMENTAL RESULTS.pdf">2016_ADDITIVE MANUFACTURING PROCESSES FOR FABRICATING A MINI ROBOT - COMPUTATIONAL MODELS AND EXPERIMENTAL RESULTS.pdf</a>)</p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/2pFReCfDZsU" title="YouTube video player" width="560"></iframe></p>
-<h2>CAD1 繪圖</h2>
+<p style="padding-left: 30px;"></p><h2>CAD1 繪圖</h2>
 <p>CAD1 指各學員所分配到的第一套參數式 CAD 套件, 其中包括 Solidworks, Inventor, NX, Onshape 與 Solvespace.</p>
 <p>CAD1 緣起說明與介紹</p>
 <p>請不要直接從找到的 CAD1 套件說明複製貼上, 而是應該要看完各種參考資料後, 重新打字彙整.</p>
@@ -141,7 +83,52 @@ end</pre>
 <p style="padding-left: 30px;">CAD2 轉入 Coppeliasim 教學影片 embedded 影片: 標題必須為「<span style="background-color: #ffff99;">NFU - MDE - cad2021 - 學號 - SW2020 </span>零件轉入 CoppeliaSim 教學影片」且加上<span style="background-color: #ccffcc;">語音說明</span>與<span style="background-color: #ccffcc;">字幕.</span></p>
 <p>若使用 Solidworks 2017 版, 則將 SW2020 換為 SW2017, 其他套件 INV2020 代表 AutoDesk Inventor 2020 版, 還有 Onshape 與 Solvespace 等套件名稱.</p>
 <h2>閱讀textbook</h2>
-<p>...</p>
+<p>第一章:介紹</p>
+<p>機器人可分機器手臂，智慧機器車，人機系統與仿生人，這些都是替代我們人類進行工作的工具</p>
+<p>最常遇到的通常是串連起來的機械手臂</p>
+<p>具有高速度，高準確性的機器取代了重複操作的操作員。</p>
+<p>這些機器相近於人類的手臂，但是速度可以來到數十倍</p>
+<p>而應用在生態，高科技上便會開始使用精細的內容，如奈米機器人等</p>
+<p></p>
+<p>在陸海空都能看到機器類型的交通工具</p>
+<p>通常只要含有輪胎，便能在地板上行動。</p>
+<table>
+<tbody>
+<tr>
+<td>ROBOTS</td>
+</tr>
+</tbody>
+</table>
+<table style="width: 467px;">
+<tbody>
+<tr style="height: 26px;">
+<td style="width: 109px; height: 26px;">ROBOT<br/>MANIPULATORS</td>
+<td style="width: 107px; height: 26px;">ROBOT<br/>VEHICLES</td>
+<td style="width: 112.95px; height: 26px;">MAN-ROBOT<br/>SYSTEMS</td>
+<td style="width: 107.05px; height: 26px;">BIOLOGICALLY<br/>INSPIRED ROBOTS</td>
+</tr>
+<tr style="height: 14px;">
+<td style="width: 109px; height: 14px;">SERIAL</td>
+<td style="width: 107px; height: 14px;">LAND</td>
+<td style="width: 112.95px; height: 14px;">HAPTIC<br/>ROBOTICS</td>
+<td style="width: 107.05px; height: 14px;">HUMANOIDS</td>
+</tr>
+<tr style="height: 14px;">
+<td style="width: 109px; height: 14px;">PARALLEL</td>
+<td style="width: 107px; height: 14px;">WATER</td>
+<td style="width: 112.95px; height: 14px;">TELEMANI-<br/>PULATORS</td>
+<td style="width: 107.05px; height: 14px;">ROBOTS FROM<br/>ANIMAL WORLD</td>
+</tr>
+<tr style="height: 14.175px;">
+<td style="width: 109px; height: 14.175px;">MICRO<br/>AND NANO</td>
+<td style="width: 107px; height: 14.175px;">AIR</td>
+<td style="width: 112.95px; height: 14.175px;">EXOSKELETONS</td>
+<td style="width: 107.05px; height: 14.175px;"></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p></p>
 <h1>Task-1</h1>
 <p>三分鐘閱讀about</p>
 <p>電腦輔助設計是使用電腦的數學和圖形能力去讓自己創作、修改、分析、和展示</p>
@@ -242,7 +229,8 @@ run()
 <script src="https://mde.tw/cp2021/cmsimde/static/gearUtils-09.js"></script>
 <script src="https://mde.tw/cp2021/cmsimde/static/SVGpathUtils-6v03-min.js"></script>
 <script src="https://mde.tw/cp2021/cmsimde/static/sylvester.js"></script>
-<script src="https://mde.tw/cp2021/cmsimde/static/PrairieDraw.js"></script><h2>hwpages</h2>
+<script src="https://mde.tw/cp2021/cmsimde/static/PrairieDraw.js"></script>
+<h2>hwpages</h2>
 <p>解決方法:</p>
 <p>使用excel為每個number加上前墜連結與後墜連結</p>
 <p>="https://"&amp;B2&amp;".github.io/cad2021_hw/content/index.html"</p>
